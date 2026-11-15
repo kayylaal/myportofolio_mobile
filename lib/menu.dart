@@ -8,9 +8,9 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP A";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Proyek", Icons.folder),
-    ItemHomepage("Tambah Proyek", Icons.add_circle),
-    ItemHomepage("Logout", Icons.logout),
+    ItemHomepage("Lihat Proyek", Icons.folder, const Color(0xFF060201)),
+    ItemHomepage("Tambah Proyek", Icons.add_circle, const Color(0xFFE5CCD2)),
+    ItemHomepage("Logout", Icons.logout, const Color(0xFFFFF8ED)),
   ];
 
   @override
@@ -23,7 +23,7 @@ class MyHomePage extends StatelessWidget {
           'MyPortfolio',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: const Color(0xFF060201),
       ),
       // Body halaman utama dengan padding di sekelilingnya.
       body: Padding(
@@ -113,8 +113,13 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  Color get foregroundColor => color.computeLuminance() > 0.5
+      ? const Color(0xFF060201)
+      : const Color(0xFFFFF8ED);
+
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -126,7 +131,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       // Menggunakan warna sekunder dari skema tema aplikasi.
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         // Aksi ketika kartu ditekan oleh pengguna.
@@ -146,12 +151,12 @@ class ItemCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(item.icon, color: Colors.white, size: 30.0),
+                Icon(item.icon, color: item.foregroundColor, size: 30.0),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
                   item.name,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: item.foregroundColor),
                 ),
               ],
             ),
