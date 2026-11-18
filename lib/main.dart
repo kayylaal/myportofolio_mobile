@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:myportofolio_mobile/menu.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'MyPortfolio',
       theme: ThemeData(
         // This is the theme of your application.
         //

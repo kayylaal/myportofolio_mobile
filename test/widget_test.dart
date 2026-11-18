@@ -1,30 +1,34 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:myportofolio_mobile/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('home shows profile and project actions', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('2506603854'), findsOneWidget);
+    expect(find.text('Kayla Ali'), findsOneWidget);
+    expect(find.text('PBP A'), findsOneWidget);
+    expect(find.text('Lihat Proyek'), findsOneWidget);
+    expect(find.text('Tambah Proyek'), findsOneWidget);
+    expect(find.text('Logout'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('Tambah Proyek opens form and validates required fields', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.text('Tambah Proyek'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Add Project Form'), findsOneWidget);
+
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Nama proyek tidak boleh kosong!'), findsOneWidget);
+    expect(find.text('Deskripsi proyek tidak boleh kosong!'), findsOneWidget);
   });
 }
