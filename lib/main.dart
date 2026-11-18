@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:myportofolio_mobile/menu.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'MyPortfolio',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -30,9 +30,12 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1A1A1A),
-          secondary: const Color(0xFFFDD4DA),
+          seedColor: const Color(0xFFE5CCD2),
+          primary: const Color(0xFF060201),
+          secondary: const Color(0xFFE5CCD2),
+          surface: const Color(0xFFFFF8ED),
         ),
+        scaffoldBackgroundColor: const Color(0xFFFFF8ED),
         useMaterial3: true,
       ),
       home: MyHomePage(),
