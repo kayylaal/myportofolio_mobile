@@ -1,6 +1,6 @@
 # MyPortfolio Mobile
 
-Aplikasi portofolio pribadi milik Kayla berbasis Flutter. Halaman utama menampilkan informasi mengenai Kayla dan tiga kartu aksi: Lihat Proyek, Tambah Proyek, dan Logout. Setiap kartu memiliki warna, ikon, dan SnackBar.
+Aplikasi portofolio pribadi milik Kayla berbasis Flutter. Halaman utama menampilkan informasi mengenai Kayla dan empat kartu aksi: Lihat Proyek, Tambah Proyek, Tambah Social Work, dan Logout. Setiap kartu memiliki warna, ikon, dan SnackBar.
 
 ## Teknologi
 
@@ -59,3 +59,32 @@ Saya menggunakan OpenAI ChatGPT untuk membantu memahami instruksi IA 7, mendisku
 Saya meninjau saran yang diberikan dan memeriksa aplikasi di Chrome. Kode juga diperiksa dengan menjalankan flutter analyze. AI dapat memberikan saran yang tidak sesuai dengan kondisi proyek, sehingga hasilnya tetap saya periksa terhadap instruksi tugas dan implementasi aktual.
 
 Log chat: https://chatgpt.com/share/6af9c10c-667c-83ec-bbb2-7153559af701
+
+
+## Tugas 8
+
+## Progres Mingguan
+- Membuat formulir Social Work dengan validasi judul, deskripsi, URL foto, dan tahun kegiatan.
+- Menambahkan akses ke formulir melalui kartu aksi halaman utama dan drawer.
+- Menambahkan dialog ringkasan setelah input lolos validasi.
+- Menjalankan `flutter analyze` untuk memeriksa kode.
+
+### 1. Perbedaan Navigator.push(), Navigator.pushReplacement(), dan Navigator.pop(). Metode yang digunakan untuk membuka formulir dari kartu aksi. Bagaimana opsi Home di drawer membawa pengguna kembali ke halaman utama.
+`Navigator.push()` menambahkan halaman baru ke atas navigation stack, sehingga user dapat kembali ke halaman sebelumnya dengan tombol kembali. Kartu Tambah Social Work dan Proyek menggunakan `push()` untuk membuka formulir. `Navigator.pushReplacement()` mengganti halaman saat ini dengan halaman baru, seperti opsi Home pada drawer yang mengarahkan pengguna kembali ke halaman utama. `Navigator.pop()` menutup halaman atau dialog yang sedang berada di atas stack.
+
+### 2. Bagaimana susunan Scaffold, AppBar, dan Drawer membantu menjaga struktur halaman tetap konsisten. Contoh penggunaan warna tema portofolio di lebih dari satu halaman.
+`Scaffold` menyediakan struktur dasar halaman, termasuk `AppBar`, `Drawer`, dan `body`. Penggunaan struktur dan drawer yang sama menjaga navigasi halaman utama dan formulir tetap konsisten. Contohnya, warna hitam `0xFF060201` digunakan pada AppBar halaman utama dan formulir Social Work, sedangkan warna latar krem `0xFFFFF8ED` digunakan sebagai warna tema aplikasi.
+
+### 3. Alasan tata letak tersebut dipilih untuk formulir. Peran widget pengatur jarak dan widget penggulir ketika ruang layar terbatas.
+Formulir menggunakan `SingleChildScrollView` agar semua kolom dan tombol Simpan tetap bisa dijangkau ketika ruang layar terbatas atau keyboard tampil. `Padding` memberi jarak di sekitar input sehingga formulir lebih mudah dibaca dan digunakan.
+
+### 4. Peran GlobalKey<FormState>, validator, dan validate() saat tombol Simpan ditekan. Contoh nilai yang ditolak oleh validasi dan mengapa memilih jenis input atau papan ketik saja belum cukup.
+4. `GlobalKey<FormState>` menghubungkan tombol Simpan dengan state formulir. Setiap field memiliki validator, lalu `validate()` memeriksa semua input ketika tombol Simpan ditekan. Contohnya, judul yang kosong atau hanya berisi spasi ditolak. Keyboard angka pada field tahun membantu memasukkan angka, tetapi tidak cukup untuk memastikan nilainya benar karena pengguna masih dapat menempelkan teks; karena itu validator tetap memeriksa bahwa input dapat diubah menjadi angka dan tahun berada dalam rentang yang ditentukan. Field judul juga dibatasi maksimal 255 karakter sesuai model Social Work.
+
+### AI Disclosure
+Saya menggunakan model OpenAI untuk membantu menafsirkan checklist menjadi tahapan-tahapan yang mudah dipahami, meninjau implementasi formulir/navigasi, dan memberi saran validasi. Dalam pengerjaan ini, saya menuliskan kodenya sendiri dan setiap selesai satu tahapan saya meminta cek dulu sebelum commit.
+
+Saya meninjau saran yang diberikan dan memeriksa aplikasi di Chrome dan menggunakan flutter analyze. AI dapat memberikan saran yang tidak sesuai dengan kondisi proyek, sehingga hasilnya tetap saya periksa terhadap instruksi tugas dan implementasi aktual.
+
+Log chat: https://chatgpt.com/share/6b01c966-62dc-83ec-b96c-9742d2491d45
+
