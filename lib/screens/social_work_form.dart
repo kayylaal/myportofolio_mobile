@@ -35,6 +35,7 @@ class _SocialWorkFormPageState extends State<SocialWorkFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  maxLength: 255,
                   decoration: InputDecoration(
                     hintText: "Nama Social Work",
                     labelText: "Nama Social Work",
@@ -50,6 +51,9 @@ class _SocialWorkFormPageState extends State<SocialWorkFormPage> {
                   validator: (String? value) {
                     if (value == null || value.trim().isEmpty) {
                       return "Nama social work tidak boleh kosong!";
+                    }
+                    if (value.length > 255) {
+                      return "Nama Social Work maksimal 255 karakter.";
                     }
                     return null;
                   },
