@@ -1,7 +1,12 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
+import 'package:myportofolio_mobile/screens/login_screen.dart';
+import 'package:myportofolio_mobile/screens/project_list_screen.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
 import 'package:myportofolio_mobile/screens/social_work_form.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
+import 'package:provider/provider.dart';
 
 class ItemCard extends StatelessWidget {
   final ItemHomepage item;
@@ -14,7 +19,44 @@ class ItemCard extends StatelessWidget {
       color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
+          if (item.name == 'Tambah Proyek') {
+            final allowed = await ensureLoggedIn(context);
+            if (!context.mounted || !allowed) return;
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(builder: (_) => const ProjectFormPage()),
+            );
+            return;
+          }
+
+          if (item.name == 'Lihat Proyek') {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const ProjectListScreen(),
+              ),
+            );
+            return;
+          }
+
+          if (item.name == 'Logout') {
+            final auth = context.read<AuthState>();
+            if (auth.isLoggedIn) {
+              await auth.logout();
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Kamu berhasil logout.')),
+              );
+            } else {
+              await Navigator.push<bool>(
+                context,
+                MaterialPageRoute<bool>(builder: (_) => const LoginScreen()),
+              );
+            }
+            return;
+          }
+
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
@@ -22,13 +64,6 @@ class ItemCard extends StatelessWidget {
                 content: Text('Kamu telah menekan tombol ${item.name}!'),
               ),
             );
-
-          if (item.name == 'Tambah Proyek') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
-            );
-          }
 
           if (item.name == 'Tambah Social Work') {
             Navigator.push(
